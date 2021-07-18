@@ -22,8 +22,6 @@ namespace Work_Items_Query
         static async Task Main(string[] args)
         {
 
-
-
             List<String> projects_names = new List<String>();
 
             Console.WriteLine("======================== Extracting Projects Data ========================");
@@ -53,25 +51,18 @@ namespace Work_Items_Query
             File.WriteAllText(project_json, jsonString);
 
 
-
             //========================Convert Projects Json to CSV ========================================
 
             String project_csv = @"<your csv file path>";
 
             JsonToCSV(project_json, project_csv);
 
-
-
-
-
             // =============================== Bugs query===================================================
             //string project_id = "7125b0b8-4193-4a92-9eda-924f6038237b";
 
             string json_str = "";
             foreach (string project in projects_names)
-            {
-
-               
+            {            
                 //Console.WriteLine(project);
 
                 string project_name = project;
@@ -106,16 +97,12 @@ namespace Work_Items_Query
                         Console.Write(i);
                     }*/
 
-
-
                     // build a list of the fields we want to see
                     var fields = new[] { "System.Id", "System.Title", "System.State", "System.CreatedDate", "System.ChangedDate", "Microsoft.VSTS.Common.Priority", "Microsoft.VSTS.Common.Severity" };
 
                     // get work items for the ids found in query
 
                     var workItems = await httpClient.GetWorkItemsAsync(ids, fields, result.AsOf).ConfigureAwait(false);
-
-
 
 
                     //var workItems = await this.QueryOpenBugs(project).ConfigureAwait(false);
@@ -126,10 +113,7 @@ namespace Work_Items_Query
                     List<String> json_array = new List<String>();
                     
                     foreach (var workItem in workItems)
-                    {
-
-                        
-
+                    {                      
 
                         string str = "";
 
@@ -141,13 +125,8 @@ namespace Work_Items_Query
                         //json_array.Add(str);
                         json_str += str + ",";                      
                       
-
-                    }
-                    
-
-
+                    }                  
                 }
-
             }
 
             string final_str = "[" + json_str.TrimEnd(',') + "]";
@@ -160,11 +139,8 @@ namespace Work_Items_Query
             String Bugs_csv = @"C:\Users\tp2010023\Desktop\project_data\csv\Bugs.csv";
             JsonToCSV(Bugs_json_path, Bugs_csv);
 
-
             //Console.ReadKey();
         }
-
-
 
         //========= function read json file and convert it to CSV file ==================
         public static void JsonToCSV(string jsonfilePath, string csvOutputFilePath)
@@ -185,8 +161,6 @@ namespace Work_Items_Query
             }
         }
 
-
-
         public static String GetProjects()
         {
             String responseBody = "";
@@ -206,7 +180,6 @@ namespace Work_Items_Query
                 responseBody = response.Result;
                 //Console.WriteLine(responseBody);
 
-
             }
             catch (Exception ex)
             {
@@ -214,9 +187,6 @@ namespace Work_Items_Query
             }
             return responseBody;
         }
-
-
-
     }
 }
 
